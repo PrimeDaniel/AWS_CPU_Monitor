@@ -304,7 +304,13 @@ function App() {
                       axisLine={{ stroke: '#cccccc' }}
                       tickLine={{ stroke: '#cccccc' }}
                       domain={yDomain}
-                      tickFormatter={(value) => `${value}%`}
+                      tickFormatter={(value) => {
+                      const n = Number(value);
+                      if (!Number.isFinite(n) || Math.abs(n) < 1e-10) return '0%';
+                      if (Math.abs(n) >= 100) return `${Math.round(n)}%`;
+                      if (Math.abs(n) >= 1) return `${n.toFixed(1)}%`;
+                      return `${n.toFixed(2)}%`;
+                    }}
                     />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend />
@@ -353,7 +359,13 @@ function App() {
                       axisLine={{ stroke: '#cccccc' }}
                       tickLine={{ stroke: '#cccccc' }}
                       domain={yDomain}
-                      tickFormatter={(value) => `${value}%`}
+                      tickFormatter={(value) => {
+                      const n = Number(value);
+                      if (!Number.isFinite(n) || Math.abs(n) < 1e-10) return '0%';
+                      if (Math.abs(n) >= 100) return `${Math.round(n)}%`;
+                      if (Math.abs(n) >= 1) return `${n.toFixed(1)}%`;
+                      return `${n.toFixed(2)}%`;
+                    }}
                     />
                     <Tooltip content={<CustomTooltip />} />
                     <Legend />
