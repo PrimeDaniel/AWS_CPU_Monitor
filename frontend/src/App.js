@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Analytics } from '@vercel/analytics/react';
 import {
   LineChart, Line, AreaChart, Area,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
@@ -498,7 +499,7 @@ function App() {
           <span className="footer-author" style={{fontWeight: 700, letterSpacing: '0.03em', marginLeft: 6}}>Daniel Fraimovich</span>
         </div>
 
-      
+      <Analytics />
     </div>
   );
 }
