@@ -15,28 +15,6 @@ Fetch CPU metrics for an EC2 instance.
   - Format: `{number}m`
   - Examples: "1m", "5m", "15m", "30m", "60m"
 
-**Example:**
-```bash
-curl "http://localhost:3001/api/metrics?ip=10.0.1.123&period=1h&interval=5m"
-```
-
-**Response:**
-```json
-{
-  "instanceId": "i-1234567890abcdef0",
-  "ip": "10.0.1.123",
-  "period": "1h",
-  "interval": "5m",
-  "dataPoints": [
-    {
-      "timestamp": "2025-02-02T10:00:00.000Z",
-      "value": 45.2
-    },
-    ...
-  ]
-}
-```
-
 
 ## Technologies Used
 
