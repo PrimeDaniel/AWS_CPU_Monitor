@@ -2,6 +2,6 @@
   "name": "aws-cpu-monitor",
   "private": true,
   "scripts": {
-    "build": "cd frontend && npm ci && npm run build"
+    "build": "cd frontend && npm ci && npm run build && cp -r build ../build"
   }
 }
