@@ -1,0 +1,8 @@
+/* Base styles handled in App.css */
+html {
+  color-scheme: light;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
