@@ -1,10 +1,6 @@
-/* Faddom-Style Design System - AWS CPU Monitor */
-/* Colors inspired by faddom.com */
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* Faddom palette only + white & black */
   --faddom-orange: #ffa500;
   --faddom-blue: #007bff;
   --faddom-light-blue: #00bfff;
@@ -32,13 +28,11 @@
   --error-text: #000000;
   --hover-overlay: rgba(0, 0, 0, 0.04);
   
-  /* Spacing */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 24px;
   
-  /* Transitions */
   --transition-fast: 150ms ease;
   --transition-normal: 250ms ease;
   --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -95,14 +89,13 @@ body {
   display: inline-block;
   width: 32px;
   height: 32px;
-  background: url('./getfaddom_logo.jpg') no-repeat center center / contain;
+  background: url('./assets/images/getfaddom_logo.jpg') no-repeat center center / contain;
   border-radius: 8px;
   flex-shrink: 0;
 }
 
 
 
-/* Main Container */
 .App-main {
   max-width: 1400px;
   margin: 0 auto;
@@ -202,7 +195,7 @@ body {
   gap: 1.5rem;
 }
 
-/* Submit Button - Faddom Style */
+/* Submit Button */
 .submit-btn {
   width: 100%;
   padding: 1rem 1.5rem;
@@ -381,7 +374,7 @@ body {
   font-weight: 500;
 }
 
-/* Chart Controls - Faddom Style */
+/* Chart Controls */
 .chart-controls {
   display: flex;
   flex-wrap: wrap;
@@ -392,7 +385,7 @@ body {
   border-bottom: 1px solid var(--border-color);
 }
 
-/* Toggle Button Group - Pill Style */
+
 .toggle-group {
   display: flex;
   gap: 0;
@@ -718,7 +711,7 @@ body {
   color: var(--faddom-orange);
 }
 
-/* Chart Recharts Overrides */
+/* Chart Overrides */
 .recharts-wrapper {
   font-family: 'Inter', sans-serif !important;
 }
@@ -815,7 +808,6 @@ body {
   }
 }
 
-/* CTA Section - Bottom of page */
 .cta-section {
   margin-top: auto;
   background: var(--faddom-blue);
@@ -919,7 +911,6 @@ body {
   }
 }
 
-/* Trusted By section */
 .trusted-by {
   background: #f0f8ff;
   padding: 2rem 2.5rem;
@@ -988,7 +979,6 @@ body {
   }
 }
 
-/* Focus Visible for Accessibility */
 *:focus-visible {
   outline: 2px solid var(--faddom-blue);
   outline-offset: 2px;

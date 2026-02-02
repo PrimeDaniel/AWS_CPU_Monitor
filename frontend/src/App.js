@@ -10,7 +10,19 @@ import './App.css';
 const API_BASE_URL = process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001');
 const USE_MOCK = process.env.REACT_APP_USE_MOCK === 'true';
 
-// Generate mock data points (same shape as API response)
+function getChartYDomain(chartData) {
+  if (!chartData || chartData.length === 0) return [0, 100];
+  const values = chartData.map((d) => d.cpu);
+  const minVal = Math.min(...values);
+  const maxVal = Math.max(...values);
+  const range = maxVal - minVal;
+  const padding = range === 0 ? 1 : Math.max(range * 0.15, 0.5);
+  const domainMin = Math.max(0, minVal - padding);
+  const domainMax = Math.min(100, maxVal + padding);
+  if (domainMin === domainMax) return [domainMin, Math.min(100, domainMax + 1)];
+  return [domainMin, domainMax];
+}
+
 function generateMockData(ip, period, interval) {
   const periodMinutes = { '15m': 15, '30m': 30, '1h': 60, '3h': 180, '6h': 360, '12h': 720, '1d': 1440, '3d': 4320, '7d': 10080 };
   const intervalMinutes = { '1m': 1, '5m': 5, '15m': 15, '30m': 30, '60m': 60 };
@@ -49,7 +61,7 @@ function App() {
   const thresholdValue = threshold !== '' ? parseFloat(threshold) : null;
   const showThreshold = thresholdEnabled && thresholdValue !== null;
 
-  // Custom tooltip component
+  // tooltip component
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       const cpuValue = payload[0].value;
@@ -85,10 +97,23 @@ function App() {
         responseData = response.data;
       }
 
-      const formattedData = responseData.dataPoints.map(point => ({
-        time: new Date(point.timestamp).toLocaleTimeString(),
-        cpu: parseFloat(Number(point.value).toFixed(2))
-      }));
+      // format data for chart
+      const points = responseData.dataPoints;
+      const rangeMs = points.length >= 2
+        ? new Date(points[points.length - 1].timestamp) - new Date(points[0].timestamp)
+        : 0;
+      const showDate = rangeMs > 24 * 60 * 60 * 1000;
+
+      const formattedData = points.map(point => {
+        const d = new Date(point.timestamp);
+        const time = showDate
+          ? d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+          : d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+        return {
+          time,
+          cpu: parseFloat(Number(point.value).toFixed(2))
+        };
+      });
 
       setData({
         ...responseData,
@@ -180,7 +205,9 @@ function App() {
           </div>
         )}
 
-        {data && data.chartData && data.chartData.length > 0 && (
+        {data && data.chartData && data.chartData.length > 0 && (() => {
+          const yDomain = getChartYDomain(data.chartData);
+          return (
           <div className="chart-container">
             <div className="chart-info">
               <h2>CPU Utilization</h2>
@@ -276,7 +303,7 @@ function App() {
                       tick={{ fill: '#555555', fontSize: 12 }}
                       axisLine={{ stroke: '#cccccc' }}
                       tickLine={{ stroke: '#cccccc' }}
-                      domain={[0, 100]}
+                      domain={yDomain}
                       tickFormatter={(value) => `${value}%`}
                     />
                     <Tooltip content={<CustomTooltip />} />
@@ -325,7 +352,7 @@ function App() {
                       tick={{ fill: '#555555', fontSize: 12 }}
                       axisLine={{ stroke: '#cccccc' }}
                       tickLine={{ stroke: '#cccccc' }}
-                      domain={[0, 100]}
+                      domain={yDomain}
                       tickFormatter={(value) => `${value}%`}
                     />
                     <Tooltip content={<CustomTooltip />} />
@@ -418,7 +445,7 @@ function App() {
               )}
             </div>
           </div>
-        )}
+        ); })()}
 
         {data && data.chartData && data.chartData.length === 0 && (
           <div className="info-message">
@@ -432,16 +459,16 @@ function App() {
         <div className="trusted-by-logos">
           <div className="trusted-by-logo" aria-label="Intel">
             
-          <img src={require('./intel.png')} alt="ISEF" />
+          <img src={require('./assets/images/intel.png')} alt="ISEF" />
             
           </div>
           <div className="trusted-by-logo" aria-label="ISEF">
-          <img src={require('./ISEF.png')} alt="ISEF" />
+          <img src={require('./assets/images/ISEF.png')} alt="ISEF" />
 
           </div>
           <div className="trusted-by-logo trusted-by-logo-rtl" aria-label="Israeli Navy">
             
-          <img src={require('./IsraeliNavy.png')} alt="ISEF" />
+          <img src={require('./assets/images/IsraeliNavy.png')} alt="ISEF" />
           </div>
         </div>
       </section>
@@ -451,17 +478,27 @@ function App() {
           <h2 className="cta-headline">Schedule a call with a AWS CPU Monitor Expert</h2>
           <div className="cta-avatars">
             <div className="cta-avatar cta-avatar-first">
-              <img src={require('./ginger.jpg')} alt="Ginger" />
+              <img src={require('./assets/images/ginger.jpg')} alt="Ginger" />
             </div>
             <div className="cta-avatar cta-avatar-second">
-              <img src={require('./daniel.jpg')} alt="Daniel" />
+              <img src={require('./assets/images/daniel.jpg')} alt="Daniel" />
             </div>
           </div>
           <a href="mailto:dfraimo@gmail.com" target="_blank" rel="noopener noreferrer" className="cta-btn">
             Contact Me by Email
           </a>
         </div>
+        
+        
+
       </footer>
+
+        <div className="footer-signature" style={{textAlign: 'center', marginTop: '2rem'}}>
+          <span className="footer-madeby">Crafted with <span style={{color: '#ff4b2b', fontWeight: 'bold'}}>♥</span> by</span>
+          <span className="footer-author" style={{fontWeight: 700, letterSpacing: '0.03em', marginLeft: 6}}>Daniel Fraimovich</span>
+        </div>
+
+      
     </div>
   );
 }

@@ -19,7 +19,6 @@ const ec2Client = new EC2Client({
 app.use(cors());
 app.use(express.json());
 
-// Helper function to find instance ID by IP address
 async function findInstanceByIP(ipAddress) {
   try {
     const command = new DescribeInstancesCommand({
@@ -58,7 +57,7 @@ async function findInstanceByIP(ipAddress) {
   }
 }
 
-// Helper function to parse time period (e.g., "1h", "30m", "2d")
+// Helper function to parse time period ( "1h", "30m", "2d")
 function parseTimePeriod(period) {
   const match = period.match(/^(\d+)([mhd])$/);
   if (!match) {
@@ -77,7 +76,7 @@ function parseTimePeriod(period) {
   return value * multipliers[unit];
 }
 
-// Helper function to parse interval (e.g., "5m", "1m")
+// Helper function to parse interval ("10m", "5m", "1m", "30m", "60m")
 function parseInterval(interval) {
   const match = interval.match(/^(\d+)m$/);
   if (!match) {
@@ -164,7 +163,6 @@ app.get('/api/metrics', async (req, res) => {
   }
 });
 
-// Health check endpoint
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
