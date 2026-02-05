@@ -4,6 +4,7 @@
   "description": "Frontend UI for AWS CPU monitoring",
   "private": true,
   "dependencies": {
+    "@vercel/analytics": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "recharts": "^2.8.0",

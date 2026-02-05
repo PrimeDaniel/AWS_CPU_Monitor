@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.f0e3239b.css",
+    "main.js": "/static/js/main.5329de80.js",
+    "static/media/ISEF.png": "/static/media/ISEF.ba7c5d634f5fb20deb67.png",
+    "static/media/IsraeliNavy.png": "/static/media/IsraeliNavy.1c264929685f27091fb5.png",
+    "static/media/ginger.jpg": "/static/media/ginger.99e5e25d5f69f4140dc8.jpg",
+    "static/media/daniel.jpg": "/static/media/daniel.0f6774e281f6b6103305.jpg",
+    "static/media/intel.png": "/static/media/intel.32d4f1e1d30cd2d0ad52.png",
+    "index.html": "/index.html",
+    "main.f0e3239b.css.map": "/static/css/main.f0e3239b.css.map",
+    "main.5329de80.js.map": "/static/js/main.5329de80.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f0e3239b.css",
+    "static/js/main.5329de80.js"
+  ]
+}
